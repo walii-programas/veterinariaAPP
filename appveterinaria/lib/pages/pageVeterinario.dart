@@ -1,21 +1,22 @@
-import 'package:appveterinaria/data/models/blog.dart';
-import 'package:appveterinaria/data/services/service.blog.dart';
+import 'package:appveterinaria/data/models/veterinarios.dart';
+import 'package:appveterinaria/data/services/service.veterinario.dart';
 import 'package:flutter/material.dart';
 
-class PageBlog extends StatefulWidget {
+class PageVeterinario extends StatefulWidget {
   @override
   _ServicePageState createState() => _ServicePageState();
 }
 
-class _ServicePageState extends State<PageBlog> {
-  List<Blog> _services = [];
+class _ServicePageState extends State<PageVeterinario> {
+  List<Veterinario> _services = [];
   Widget build(BuildContext context) {
     if (_services == null || _services.length == 0) {
       _getAllService();
     }
 
     return Scaffold(
-        appBar: AppBar(title: Text('BLOG'), backgroundColor: Colors.purple),
+        appBar:
+            AppBar(title: Text('VETERINARIOS'), backgroundColor: Colors.purple),
         body: Container(
           color: Colors.white,
           padding: EdgeInsets.all(15),
@@ -33,7 +34,7 @@ class _ServicePageState extends State<PageBlog> {
         ));
   }
 
-  Widget _servicesCircle(Blog service) {
+  Widget _servicesCircle(Veterinario service) {
     return Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         margin: EdgeInsets.all(15),
@@ -52,20 +53,24 @@ class _ServicePageState extends State<PageBlog> {
                 child: Text(
                   service.name,
                   style: TextStyle(
-                      color: Colors.purple,
+                      color: Colors.black,
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
                 ),
               ),
-              Text(service.description)
+              Text(service.phone,
+                  style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold)),
             ],
           ),
         ));
   }
 
   void _getAllService() async {
-    ServiceBlog servicio = ServiceBlog();
-    List<Blog> services = await servicio.listAll();
+    ServiceVeterinario servicio = ServiceVeterinario();
+    List<Veterinario> services = await servicio.listAll();
     setState(() {
       this._services = services;
     });
